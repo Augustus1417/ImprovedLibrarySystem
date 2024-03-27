@@ -17,33 +17,33 @@ class Patron:
 class Library:
     def __init__(self,name):
         self.name = name
-        patronDict = open("patrons.json")
+        patronDict = open("ImprovedLibrarySystem\\patrons.json")
         self.patrons = load(patronDict)
-        bookDict = open("books.json")
+        bookDict = open("ImprovedLibrarySystem\\books.json")
         self.books = load(bookDict)
 
     def new_book(self,title,author,ISBN,available_copies):
         self.books[ISBN] = (author,title,available_copies)
         print(f"\n\t{title} by {author} has been registered. \n\tISBN: {ISBN} \n\tAvailable Copies: {available_copies}\n")
-        with open ("books.json",'w') as f: dump(self.books,f)
+        with open ("ImprovedLibrarySystem\\books.json",'w') as f: dump(self.books,f, indent=4)
 
     def remove_book(self,ISBN):
         if ISBN in self.books:
             print(f"\n\t{self.books[ISBN][1]} by {self.books[ISBN][0]} has been removed from the library.\n")
             del self.books[ISBN]
-            with open ("books.json",'w') as f: dump(self.books,f)
+            with open ("ImprovedLibrarySystem\\books.json",'w') as f: dump(self.books,f,indent = 4)
         else: print("\n\tBook not found\n")
 
     def register_patron(self,name, library_card_number,books_borrowed):
         self.patrons[library_card_number] = (name,books_borrowed)
         print(f"\n\tPatron has been registered. Welcome {name}!\n\tYour Library Card Number is {library_card_number}\n")
-        with open ("patrons.json",'w') as f: dump(self.patrons,f)
+        with open ("ImprovedLibrarySystem\\patrons.json",'w') as f: dump(self.patrons,f,indent = 4)
 
     def remove_patron(self,library_card_number):
         if library_card_number in self.patrons:
             print(f"\n\t{self.patrons[library_card_number][0]} has been removed from the library records.\n")
             del self.patrons[library_card_number]
-            with open ("patrons.json",'w') as f: dump(self.patrons,f)
+            with open ("ImprovedLibrarySystem\\patrons.json",'w') as f: dump(self.patrons,f,indent = 4)
         else: print("\n\tPatron not found\n")
 
     def borrow_book(self,library_card_number,ISBN,amount):
@@ -52,8 +52,8 @@ class Library:
                 if amount <= self.books[ISBN][2]:
                     self.books[ISBN][2] -= amount
                     self.patrons[library_card_number][1] += amount
-                    with open ("patrons.json",'w') as f: dump(self.patrons,f)
-                    with open ("books.json",'w') as g: dump(self.books,g)
+                    with open ("ImprovedLibrarySystem\\patrons.json",'w') as f: dump(self.patrons,f,indent = 4)
+                    with open ("ImprovedLibrarySystem\\books.json",'w') as g: dump(self.books,g,indent = 4)
                     if amount > 1:print(f"\n\t{self.patrons[library_card_number][0]} has borrowed {amount} copies of {self.books[ISBN][1]}.\n")
                     if amount == 1:print(f"\n\t{self.patrons[library_card_number][0]} has borrowed {amount} copy of {self.books[ISBN][1]}.\n")
                 else: print("\n\tInvalid amount.\n")
@@ -67,8 +67,8 @@ class Library:
                 if amount <= self.patrons[library_card_number][1]:
                     self.books[ISBN][2] += amount
                     self.patrons[library_card_number][1] -= amount
-                    with open ("patrons.json",'w') as f: dump(self.patrons,f)
-                    with open ("books.json",'w') as g: dump(self.books,g)
+                    with open ("ImprovedLibrarySystem\\patrons.json",'w') as f: dump(self.patrons,f,indent=4)
+                    with open ("ImprovedLibrarySystem\\books.json",'w') as g: dump(self.books,g,indent=4)
                     if amount > 1:print(f"\n\t{self.patrons[library_card_number][0]} has returned {amount} copies of {self.books[ISBN][1]}.\n")
                     if amount == 1:print(f"\n\t{self.patrons[library_card_number][0]} has returned {amount} copy of {self.books[ISBN][1]}.\n")
                 else: print("\n\tInvalid amount\n")
@@ -86,12 +86,12 @@ class Library:
 
     def clearbooks(self):
         self.books.clear()
-        with open ("books.json",'w') as g: dump(self.books,g)
+        with open ("ImprovedLibrarySystem\\books.json",'w') as g: dump(self.books,g,indent=4)
         print("Book records have been cleared.")
     
     def clearpatrons(self):
         self.patrons.clear()
-        with open ("patrons.json","w") as f: dump(self.patrons,f)
+        with open ("ImprovedLibrarySystem\\patrons.json","w") as f: dump(self.patrons,f,indent = 4)
         print("Patron records have been cleared.")
    
 def line():

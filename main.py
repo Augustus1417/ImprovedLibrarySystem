@@ -95,7 +95,7 @@ class Library:
         print("Patron records have been cleared.")
    
 def line():
-    for x in range(60):print("-",end="")
+    for x in range(75):print("=",end="")
     print()
 
 def main():
